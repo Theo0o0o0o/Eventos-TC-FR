@@ -1,34 +1,47 @@
 import { Link } from 'react-router-dom';
-import { Phone } from 'lucide-react';
+import { Phone, Mail } from 'lucide-react';
 import logo from '@/assets/logo.png';
 
 export function Footer() {
   return (
-    <footer className="relative mt-12 overflow-hidden border-t border-white/10 bg-[linear-gradient(180deg,hsl(221_52%_14%/0.88),hsl(224_58%_10%/0.96))] text-[hsl(210,20%,85%)] backdrop-blur-xl dark:bg-[linear-gradient(180deg,hsl(224_36%_10%/0.88),hsl(226_44%_7%/0.98))]">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/20" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-[radial-gradient(circle_at_top,hsl(var(--secondary)/0.16),transparent_60%)]" />
-      <div className="container relative py-8">
-        <div className="flex flex-col items-center gap-4 text-center">
-          <Link to="/" className="rounded-2xl border border-white/10 bg-white/5 p-3 backdrop-blur-md transition-colors hover:bg-white/10">
-            <img src={logo} alt="Eventos TC" className="h-11 w-auto opacity-95" />
-          </Link>
+    <footer className="relative mt-14 overflow-hidden border-t border-foreground/10 bg-[hsl(223_42%_16%)] text-[hsl(45_28%_90%)]">
+      <div className="absolute inset-0 poster-grid-bg opacity-[0.12]" />
+      <div className="absolute inset-x-0 top-0 h-28 bg-[radial-gradient(circle_at_top,hsl(var(--secondary)/0.16),transparent_58%)]" />
+      <div className="container relative py-10">
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-md">
+            <Link to="/" className="inline-flex rounded-[1.5rem] bg-white/10 p-2.5 shadow-sm transition-transform duration-150 hover:-translate-y-0.5">
+              <div className="flex items-center gap-3 rounded-[1.1rem] border border-white/10 bg-white/8 px-3 py-2">
+                <div className="flex h-11 w-11 items-center justify-center rounded-[0.95rem] bg-white/10 p-2">
+                  <img src={logo} alt="Eventos TC" className="h-8 w-auto" />
+                </div>
+                <div>
+                  <span className="block font-display text-lg font-black uppercase tracking-[-0.04em] text-white">
+                    Eventos TC
+                  </span>
+                </div>
+              </div>
+            </Link>
+          </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-[hsl(210,18%,84%)]">
-            <span className="flex items-center gap-1.5">
-              <Phone className="h-3.5 w-3.5" />
+          <div className="flex flex-col gap-3 text-sm text-white/82 md:items-end">
+            <a href="tel:+351289889570" className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/8 px-4 py-2 transition-colors hover:bg-white/12">
+              <Phone className="h-4 w-4" />
               289-889-570
-            </span>
-            <a href="mailto:secretaria@agr-tc.pt" className="transition-colors hover:text-white">
+            </a>
+            <a href="mailto:secretaria@agr-tc.pt" className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/8 px-4 py-2 transition-colors hover:bg-white/12">
+              <Mail className="h-4 w-4" />
               secretaria@agr-tc.pt
             </a>
-            <a href="mailto:direcao.agrupamento@agr-tc.pt" className="transition-colors hover:text-white">
+            <a href="mailto:direcao.agrupamento@agr-tc.pt" className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/8 px-4 py-2 transition-colors hover:bg-white/12">
+              <Mail className="h-4 w-4" />
               direcao.agrupamento@agr-tc.pt
             </a>
           </div>
+        </div>
 
-          <p className="text-xs text-[hsl(210,18%,68%)]">
-            Copyright © {new Date().getFullYear()}. Agrupamento de Escolas Tomás Cabreira, em Faro.
-          </p>
+        <div className="mt-8 border-t border-white/10 pt-4 text-xs uppercase tracking-[0.12em] text-white/56">
+          Copyright © {new Date().getFullYear()}. Agrupamento de Escolas Tomás Cabreira, em Faro.
         </div>
       </div>
     </footer>

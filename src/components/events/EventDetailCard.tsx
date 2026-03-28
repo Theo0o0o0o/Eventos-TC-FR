@@ -37,10 +37,9 @@ export function EventDetailCard({ event, onRegister, onEdit, onCancel, onApprove
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex flex-wrap items-start justify-between gap-4">
-        <div className="space-y-2">
-          <div className="flex items-center gap-2">
+        <div className="space-y-3">
+          <div className="flex flex-wrap items-center gap-2">
             <Badge variant={eventTypeColors[event.type] as any}>
               {event.type === 'other' && event.customType ? event.customType : eventTypeLabels[event.type]}
             </Badge>
@@ -48,12 +47,12 @@ export function EventDetailCard({ event, onRegister, onEdit, onCancel, onApprove
               {statusLabel[event.status]}
             </Badge>
           </div>
-          <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground text-safe">
+          <h1 className="editorial-title text-[clamp(2.4rem,7vw,4.8rem)] text-foreground text-safe">
             {event.title}
           </h1>
         </div>
         {(onEdit || onCancel || onApprove) && (
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             {onEdit && (
               <Button variant="outline" onClick={onEdit}>Editar</Button>
             )}
@@ -71,48 +70,46 @@ export function EventDetailCard({ event, onRegister, onEdit, onCancel, onApprove
         )}
       </div>
 
-      {/* Description */}
-      <div className="glass-card rounded-xl p-6">
-        <h2 className="font-display text-xl font-bold text-foreground mb-3">Sobre o Evento</h2>
-        <p className="text-muted-foreground leading-relaxed whitespace-pre-wrap text-safe">{event.description}</p>
+      <div className="glass-card rounded-[1.8rem] p-6 md:p-8">
+        <h2 className="font-display text-xl font-black uppercase tracking-[-0.03em] text-foreground mb-3">Sobre o Evento</h2>
+        <p className="text-muted-foreground leading-7 whitespace-pre-wrap text-safe">{event.description}</p>
       </div>
 
-      {/* Dates section - show all dates */}
-      <div className="glass-card rounded-xl p-6">
-        <h2 className="font-display text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+      <div className="glass-panel rounded-[1.8rem] p-6 md:p-8">
+        <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-black uppercase tracking-[-0.03em] text-foreground">
           <Calendar className="h-5 w-5 text-primary" /> Datas e Horários
         </h2>
         {occurrences.length === 1 ? (
           <div className="space-y-2">
-            <p className="font-medium text-foreground">
+            <p className="font-semibold text-foreground">
               {format(dateFromDateKey(occurrences[0].dateKey), "EEEE, d 'de' MMMM 'de' yyyy", { locale: pt })}
             </p>
-            <p className="text-muted-foreground flex items-center gap-2">
-              <Clock className="h-4 w-4" /> {occurrences[0].time} · {occurrences[0].duration} min
+            <p className="flex items-center gap-2 text-muted-foreground">
+              <Clock className="h-4 w-4 text-primary" /> {occurrences[0].time} · {occurrences[0].duration} min
             </p>
             {occurrences[0].hasException && (
-              <Badge variant="secondary" className="text-xs">Exceção</Badge>
+              <Badge variant="secondary" className="text-[10px]">Exceção</Badge>
             )}
           </div>
         ) : (
           <div className="space-y-2 max-h-[40vh] overflow-y-auto pr-1">
-            <p className="text-sm text-muted-foreground mb-3">
+            <p className="mb-3 text-sm text-muted-foreground">
               Horário padrão: {event.time} · {event.duration} min
             </p>
             {occurrences.map((occurrence) => (
-              <div key={occurrence.dateKey} className="glass-muted flex items-center gap-3 rounded-2xl p-3">
+              <div key={occurrence.dateKey} className="glass-muted flex items-center gap-3 rounded-[1.25rem] p-3">
                 <Badge variant="outline" className="shrink-0">
-                  {format(dateFromDateKey(occurrence.dateKey), "d MMM", { locale: pt })}
+                  {format(dateFromDateKey(occurrence.dateKey), 'd MMM', { locale: pt })}
                 </Badge>
-                <span className="text-foreground text-sm">
+                <span className="text-sm text-foreground">
                   {occurrence.hasException ? (
-                    <span className="text-primary font-medium">{occurrence.time} · {occurrence.duration} min</span>
+                    <span className="font-medium text-primary">{occurrence.time} · {occurrence.duration} min</span>
                   ) : (
                     <span>{occurrence.time} · {occurrence.duration} min</span>
                   )}
                 </span>
                 {occurrence.hasException && (
-                  <Badge variant="secondary" className="text-xs">Exceção</Badge>
+                  <Badge variant="secondary" className="text-[10px]">Exceção</Badge>
                 )}
               </div>
             ))}
@@ -120,46 +117,45 @@ export function EventDetailCard({ event, onRegister, onEdit, onCancel, onApprove
         )}
       </div>
 
-      {/* Info Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="glass-card rounded-xl p-5 flex items-center gap-4">
-          <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-            <Timer className="h-6 w-6 text-primary" />
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="glass-card rounded-[1.6rem] p-5 flex items-center gap-4">
+          <div className="flex h-14 w-14 items-center justify-center rounded-[1.2rem] bg-primary/10 text-primary">
+            <Timer className="h-6 w-6" />
           </div>
           <div>
-            <p className="text-sm text-muted-foreground">Duração (padrão)</p>
-            <p className="font-medium text-foreground">{event.duration} minutos</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">Duração (padrão)</p>
+            <p className="mt-1 font-semibold text-foreground">{event.duration} minutos</p>
           </div>
         </div>
 
-        <div className="glass-card rounded-xl p-5 flex items-center gap-4">
-          <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-            <MapPin className="h-6 w-6 text-primary" />
+        <div className="glass-card rounded-[1.6rem] p-5 flex items-center gap-4">
+          <div className="flex h-14 w-14 items-center justify-center rounded-[1.2rem] bg-primary/10 text-primary">
+            <MapPin className="h-6 w-6" />
           </div>
           <div>
-            <p className="text-sm text-muted-foreground">Local</p>
-            <p className="font-medium text-foreground text-safe">{event.location}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">Local</p>
+            <p className="mt-1 font-semibold text-foreground text-safe">{event.location}</p>
           </div>
         </div>
 
-        <div className="glass-card rounded-xl p-5 flex items-center gap-4">
-          <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-            <User className="h-6 w-6 text-primary" />
+        <div className="glass-card rounded-[1.6rem] p-5 flex items-center gap-4">
+          <div className="flex h-14 w-14 items-center justify-center rounded-[1.2rem] bg-primary/10 text-primary">
+            <User className="h-6 w-6" />
           </div>
           <div>
-            <p className="text-sm text-muted-foreground">Organizador</p>
-            <p className="font-medium text-foreground">{event.organizerName}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">Organizador</p>
+            <p className="mt-1 font-semibold text-foreground">{event.organizerName}</p>
           </div>
         </div>
 
         {event.registrationType !== 'open' && (
-          <div className="glass-card rounded-xl p-5 flex items-center gap-4">
-            <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-              <Users className="h-6 w-6 text-primary" />
+          <div className="glass-card rounded-[1.6rem] p-5 flex items-center gap-4">
+            <div className="flex h-14 w-14 items-center justify-center rounded-[1.2rem] bg-primary/10 text-primary">
+              <Users className="h-6 w-6" />
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">Vagas</p>
-              <p className="font-medium text-foreground">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">Vagas</p>
+              <p className="mt-1 font-semibold text-foreground">
                 {event.currentParticipants} / {event.maxParticipants}
               </p>
             </div>
@@ -167,33 +163,31 @@ export function EventDetailCard({ event, onRegister, onEdit, onCancel, onApprove
         )}
       </div>
 
-      {/* Progress Bar */}
       {event.registrationType !== 'open' && (
-        <div className="glass-card rounded-xl p-6">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-foreground">Ocupação</span>
+        <div className="glass-card rounded-[1.8rem] p-6 md:p-8">
+          <div className="mb-2 flex items-center justify-between">
+            <span className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">Ocupação</span>
             <span className="text-sm text-muted-foreground">{occupancyPercent}%</span>
           </div>
-          <div className="h-3 w-full overflow-hidden rounded-full bg-white/40 dark:bg-white/10">
+          <div className="h-3 w-full overflow-hidden rounded-full bg-foreground/10">
             <div
-              className={`h-full rounded-full transition-all duration-500 ${
-                isFull ? 'bg-destructive' : occupancyPercent > 80 ? 'bg-amber-500' : 'bg-primary'
+              className={`h-full rounded-full transition-all duration-200 ${
+                isFull ? 'bg-destructive' : occupancyPercent > 80 ? 'bg-secondary' : 'bg-primary'
               }`}
               style={{ width: `${occupancyPercent}%` }}
             />
           </div>
           {isFull && (
-            <p className="text-sm text-destructive mt-2 font-medium">Evento esgotado!</p>
+            <p className="mt-2 text-sm font-medium text-destructive">Evento esgotado!</p>
           )}
         </div>
       )}
 
-      {/* Registration Button */}
       {onRegister && event.status === 'upcoming' && (
         <Button
           size="xl"
           className="w-full"
-          variant={isRegistered ? 'outline' : isFull ? 'secondary' : 'hero'}
+          variant={isRegistered ? 'outline' : isFull ? 'secondary' : 'default'}
           disabled={isFull && !isRegistered}
           onClick={onRegister}
         >

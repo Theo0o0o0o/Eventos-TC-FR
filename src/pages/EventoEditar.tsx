@@ -27,7 +27,7 @@ const EventoEditar = () => {
 
   if (!canManageEvents) {
     return (
-      <div className="min-h-screen flex flex-col bg-muted/30">
+      <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-1 container py-16 text-center">
           <h1 className="font-display text-2xl font-bold text-foreground mb-4">Acesso restrito</h1>
@@ -40,7 +40,7 @@ const EventoEditar = () => {
 
   if (!event) {
     return (
-      <div className="min-h-screen flex flex-col bg-muted/30">
+      <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-1 container py-16 text-center">
           <h1 className="font-display text-2xl font-bold text-foreground mb-4">Evento não encontrado</h1>
@@ -53,7 +53,7 @@ const EventoEditar = () => {
 
   if (!canEdit) {
     return (
-      <div className="min-h-screen flex flex-col bg-muted/30">
+      <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-1 container py-16 text-center">
           <h1 className="font-display text-2xl font-bold text-foreground mb-4">Sem permissão</h1>
@@ -97,10 +97,10 @@ const EventoEditar = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-muted/30">
+    <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1 container py-8 max-w-3xl">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+        <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.26 }}>
           <Button variant="ghost" className="gap-2 mb-6" onClick={() => navigate(returnTo, { replace: true })}>
             <ArrowLeft className="h-4 w-4" /> Voltar
           </Button>

@@ -29,7 +29,7 @@ const EventoDetalhe = () => {
 
   if (!event) {
     return (
-      <div className="min-h-screen flex flex-col bg-muted/30">
+      <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-1 container py-16 text-center">
           <h1 className="font-display text-2xl font-bold text-foreground mb-4">Evento não encontrado</h1>
@@ -102,36 +102,37 @@ const EventoDetalhe = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-muted/30">
+    <div className="min-h-screen flex flex-col">
       <Header />
 
       {event.coverImage && (
-        <div className="relative h-48 md:h-64 w-full overflow-hidden">
-          <img src={event.coverImage} alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+        <div className="container pt-6">
+          <div className="paper-frame mx-auto max-w-5xl rotate-[-1deg]">
+            <img src={event.coverImage} alt="" className="h-[18rem] w-full object-cover md:h-[24rem]" />
+          </div>
         </div>
       )}
 
-      <main className="flex-1 container py-8 max-w-4xl">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-          <Button variant="ghost" className="gap-2 mb-6" onClick={() => navigate(-1)}>
+      <main className="flex-1 container max-w-4xl py-8">
+        <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.26 }}>
+          <Button variant="outline" className="mb-6 gap-2" onClick={() => navigate(-1)}>
             <ArrowLeft className="h-4 w-4" /> Voltar
           </Button>
 
           {!event.approved && event.rejectionReason && (
-            <div className="mb-4 p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm">
+            <div className="mb-4 rounded-[1.25rem] border border-destructive/20 bg-destructive/10 p-4 text-sm text-destructive">
               ❌ Este evento foi rejeitado. Motivo: {event.rejectionReason}
             </div>
           )}
 
           {!event.approved && !event.rejectionReason && (
-            <div className="mb-4 p-3 rounded-lg bg-secondary/10 border border-secondary/20 text-foreground text-sm">
+            <div className="mb-4 rounded-[1.25rem] border border-secondary/20 bg-secondary/10 p-4 text-sm text-foreground">
               ⏳ Este evento está pendente de aprovação pelo administrador.
             </div>
           )}
 
           {isOpenEvent && (
-            <div className="mb-4 p-3 rounded-lg bg-primary/10 border border-primary/20 text-foreground text-sm">
+            <div className="mb-4 rounded-[1.25rem] border border-primary/20 bg-primary/10 p-4 text-sm text-foreground">
               🎉 Este é um evento aberto — não é necessária inscrição.
             </div>
           )}
@@ -194,7 +195,7 @@ const EventoDetalhe = () => {
           )}
 
           {isCompleted && !isOpenEvent && canManageEvents && (
-            <div className="mt-4 glass-card rounded-xl p-5">
+            <div className="mt-4 glass-card rounded-[1.6rem] p-5">
               <h3 className="font-display text-lg font-bold text-foreground flex items-center gap-2 mb-3">
                 <Award className="h-5 w-5 text-primary" /> Certificados
               </h3>
@@ -209,7 +210,7 @@ const EventoDetalhe = () => {
 
           {/* Gallery Carousel */}
           {gallery.length > 0 && (
-            <div className="mt-8 glass-card rounded-xl p-6">
+            <div className="mt-8 glass-card rounded-[1.8rem] p-6">
               <h2 className="font-display text-xl font-bold text-foreground mb-4">Galeria</h2>
               <div className="relative">
                 <div className="overflow-hidden rounded-lg aspect-video">
@@ -242,7 +243,7 @@ const EventoDetalhe = () => {
 
           {/* Participants section */}
           {!isOpenEvent && (
-            <div className="mt-8 glass-card rounded-xl p-6">
+            <div className="mt-8 glass-card rounded-[1.8rem] p-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="font-display text-xl font-bold text-foreground flex items-center gap-2">
                   <Users className="h-5 w-5 text-primary" /> Inscritos

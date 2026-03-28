@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Calendar, Users, TrendingUp, Clock } from 'lucide-react';
 import { useEvents } from '@/contexts/EventContext';
+import { cn } from '@/lib/utils';
 
 export function StatsSection() {
   const { events } = useEvents();
@@ -23,28 +24,49 @@ export function StatsSection() {
   const occupancy = totalMax > 0 ? Math.round((totalCurrent / totalMax) * 100) : 0;
 
   const stats = [
-    { label: 'Eventos Ativos', value: String(activeEvents), icon: Calendar, color: 'text-primary dark:text-white' },
-    { label: 'Total Inscritos', value: String(totalParticipants), icon: Users, color: 'text-success' },
-    { label: 'Esta Semana', value: String(thisWeek), icon: Clock, color: 'text-amber-600 dark:text-amber-300' },
-    { label: 'Taxa de Ocupação', value: `${occupancy}%`, icon: TrendingUp, color: 'text-secondary dark:text-amber-300' },
+    { label: 'Eventos Ativos', value: String(activeEvents), icon: Calendar },
+    { label: 'Total Inscritos', value: String(totalParticipants), icon: Users, featured: true },
+    { label: 'Esta Semana', value: String(thisWeek), icon: Clock },
+    { label: 'Taxa de Ocupação', value: `${occupancy}%`, icon: TrendingUp },
   ];
 
   return (
-    <section className="py-8">
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+    <section className="py-8 md:py-10">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {stats.map((stat, index) => (
           <motion.div
             key={stat.label}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: index * 0.1 }}
-            className="glass-card rounded-[1.5rem] p-5 text-center"
+            transition={{ duration: 0.24, delay: index * 0.04 }}
+            className={cn(
+              'glass-card rounded-[1.8rem] p-5 md:p-6',
+              stat.featured && 'bg-primary text-primary-foreground before:opacity-0',
+            )}
           >
-            <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/40 bg-white/50 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
-              <stat.icon className={`h-6 w-6 ${stat.color}`} />
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p
+                  className={cn(
+                    'text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground',
+                    stat.featured && 'text-white/70',
+                  )}
+                >
+                  {stat.label}
+                </p>
+                <p className={cn('mt-4 font-display text-4xl font-black tracking-[-0.05em] text-foreground', stat.featured && 'text-white')}>
+                  {stat.value}
+                </p>
+              </div>
+              <div
+                className={cn(
+                  'flex h-14 w-14 items-center justify-center rounded-[1.3rem] border border-foreground/10 bg-white/80 shadow-sm',
+                  stat.featured && 'border-white/16 bg-white/12 text-white',
+                )}
+              >
+                <stat.icon className="h-6 w-6" />
+              </div>
             </div>
-            <p className="mb-1 mt-4 text-3xl font-bold text-foreground">{stat.value}</p>
-            <p className="text-sm text-muted-foreground">{stat.label}</p>
           </motion.div>
         ))}
       </div>

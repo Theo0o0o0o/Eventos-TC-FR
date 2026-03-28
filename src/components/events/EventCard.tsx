@@ -1,13 +1,7 @@
 import { motion } from 'framer-motion';
 import { format } from 'date-fns';
 import { pt } from 'date-fns/locale';
-import { 
-  Calendar, 
-  Clock, 
-  MapPin, 
-  Users, 
-  ArrowRight 
-} from 'lucide-react';
+import { Calendar, Clock, MapPin, Users, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Event, eventTypeLabels, eventTypeColors } from '@/data/mockData';
@@ -25,103 +19,84 @@ export function EventCard({ event, index = 0 }: EventCardProps) {
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
-      className="group glass-card rounded-2xl overflow-hidden card-hover"
+      transition={{ duration: 0.24, delay: index * 0.03 }}
+      className="group glass-card rounded-[1.9rem] p-4 card-hover"
     >
-      {/* Event Image/Header */}
-      <div className="relative h-40 bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMiIgZmlsbD0icmdiYSgwLDAsMCwwLjAzKSIvPjwvc3ZnPg==')] opacity-50" />
-        <div className="relative z-10 text-center px-6">
-          <Badge variant={eventTypeColors[event.type] as any} className="mb-2">
-            {eventTypeLabels[event.type]}
-          </Badge>
-          <h3 className="font-display text-xl font-bold text-foreground line-clamp-2 group-hover:text-primary transition-colors">
-            {event.title}
-          </h3>
+      <div className="mb-4 rounded-[1.5rem] border border-foreground/10 bg-[hsl(var(--paper-strong)/0.55)] p-4 poster-grid-bg">
+        <div className="mb-4 flex flex-wrap gap-2">
+          <Badge variant={eventTypeColors[event.type] as any}>{eventTypeLabels[event.type]}</Badge>
+          {isFull && <Badge variant="destructive">Esgotado</Badge>}
+          {isAlmostFull && !isFull && <Badge variant="secondary">Últimas vagas</Badge>}
         </div>
-        
-        {/* Status indicator */}
-        {isFull && (
-          <div className="absolute top-3 right-3">
-            <Badge variant="destructive">Esgotado</Badge>
+
+        {event.coverImage ? (
+          <div className="paper-frame mx-auto w-[92%] rotate-[-2deg]">
+            <img src={event.coverImage} alt="" className="h-40 w-full" />
           </div>
-        )}
-        {isAlmostFull && !isFull && (
-          <div className="absolute top-3 right-3">
-            <Badge variant="secondary" className="bg-amber-100 text-amber-700">
-              Últimas vagas
-            </Badge>
+        ) : (
+          <div className="flex min-h-[10rem] items-center justify-center rounded-[1.3rem] border border-foreground/10 bg-white/72 p-5 text-center">
+            <h3 className="editorial-title text-3xl text-foreground">{event.title}</h3>
           </div>
         )}
       </div>
 
-      {/* Content */}
-      <div className="p-5 space-y-4">
-        <p className="text-sm text-muted-foreground line-clamp-2">
+      <div className="space-y-4 px-1 pb-1">
+        <h3 className="font-display text-2xl font-black tracking-[-0.04em] text-foreground line-clamp-2 text-safe">
+          {event.title}
+        </h3>
+
+        <p className="text-sm leading-6 text-muted-foreground line-clamp-2">
           {event.description}
         </p>
 
-        {/* Event Details */}
-        <div className="space-y-2">
-          <div className="flex items-center gap-2 text-sm">
+        <div className="space-y-2.5 rounded-[1.3rem] border border-foreground/10 bg-white/55 p-4 shadow-sm">
+          <div className="flex items-center gap-2 text-sm text-foreground">
             <Calendar className="h-4 w-4 text-primary" />
-            <span className="capitalize">
-              {format(event.date, "EEEE, d 'de' MMMM", { locale: pt })}
-            </span>
+            <span className="capitalize">{format(event.date, "EEEE, d 'de' MMMM", { locale: pt })}</span>
           </div>
-          <div className="flex items-center gap-2 text-sm">
+          <div className="flex items-center gap-2 text-sm text-foreground">
             <Clock className="h-4 w-4 text-primary" />
             <span>{event.time} · {event.duration} min</span>
           </div>
-          <div className="flex items-center gap-2 text-sm">
+          <div className="flex items-center gap-2 text-sm text-foreground">
             <MapPin className="h-4 w-4 text-primary" />
             <span>{event.location}</span>
           </div>
         </div>
 
-        {/* Participants Progress */}
         <div className="space-y-2">
           <div className="flex items-center justify-between text-sm">
-            <div className="flex items-center gap-2">
-              <Users className="h-4 w-4 text-muted-foreground" />
-              <span className="text-muted-foreground">
-                {event.currentParticipants} / {event.maxParticipants} inscritos
-              </span>
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <Users className="h-4 w-4" />
+              <span>{event.currentParticipants} / {event.maxParticipants} inscritos</span>
             </div>
-            <span className={cn(
-              "font-medium",
-              isFull ? "text-destructive" : isAlmostFull ? "text-amber-600" : "text-success"
-            )}>
+            <span
+              className={cn(
+                'font-semibold uppercase tracking-[0.08em]',
+                isFull ? 'text-destructive' : isAlmostFull ? 'text-secondary-foreground' : 'text-success',
+              )}
+            >
               {isFull ? 'Esgotado' : `${spotsLeft} vagas`}
             </span>
           </div>
-          <div className="h-2 rounded-full bg-muted overflow-hidden">
+          <div className="h-2.5 overflow-hidden rounded-full bg-foreground/10">
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${(event.currentParticipants / event.maxParticipants) * 100}%` }}
-              transition={{ duration: 0.8, delay: index * 0.1 + 0.2 }}
+              transition={{ duration: 0.34, delay: index * 0.03 + 0.08 }}
               className={cn(
-                "h-full rounded-full transition-colors",
-                isFull 
-                  ? "bg-destructive" 
-                  : isAlmostFull 
-                    ? "bg-amber-500" 
-                    : "bg-success"
+                'h-full rounded-full transition-colors',
+                isFull ? 'bg-destructive' : isAlmostFull ? 'bg-secondary' : 'bg-success',
               )}
             />
           </div>
         </div>
 
-        {/* Action Button */}
-        <Button 
-          className="w-full group/btn" 
-          variant={isFull ? "outline" : "default"}
-          disabled={isFull}
-        >
+        <Button className="w-full group/btn" variant={isFull ? 'outline' : 'default'} disabled={isFull}>
           {isFull ? 'Lista de espera' : 'Inscrever-me'}
-          <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+          <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover/btn:translate-x-1" />
         </Button>
       </div>
     </motion.article>

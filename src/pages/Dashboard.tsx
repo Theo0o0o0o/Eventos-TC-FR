@@ -80,7 +80,7 @@ const Dashboard = () => {
 
   if (!canManageEvents) {
     return (
-      <div className="min-h-screen flex flex-col bg-muted/30">
+      <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-1 container py-16 text-center">
           <h1 className="font-display text-2xl font-bold text-foreground mb-4">Acesso restrito</h1>
@@ -93,10 +93,10 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-muted/30">
+    <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1 container py-8">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+        <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.26 }}
           className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
             <h1 className="font-display text-3xl font-bold text-foreground">Dashboard</h1>
@@ -120,7 +120,7 @@ const Dashboard = () => {
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}
+        <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.26, delay: 0.05 }}
           className="grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-6 mb-8">
           {stats.map((stat) => (
             <div key={stat.label} className="glass-card rounded-[1.5rem] p-4">
@@ -133,7 +133,7 @@ const Dashboard = () => {
           ))}
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }}
+        <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.26, delay: 0.055 }}
           className="space-y-4 mb-6">
           <div className="flex flex-col md:flex-row gap-3">
             <div className="relative flex-1">
@@ -156,7 +156,7 @@ const Dashboard = () => {
             selectedDate={selectedDate} onDateChange={setSelectedDate} />
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
+        <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.26, delay: 0.1 }}
           className="glass-card rounded-xl overflow-hidden">
           <div className="p-5 border-b border-border">
             <h2 className="font-display text-xl font-bold text-foreground">Eventos ({filteredEvents.length})</h2>

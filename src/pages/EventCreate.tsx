@@ -18,14 +18,14 @@ const EventCreate = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-muted/30">
+    <div className="min-h-screen flex flex-col">
       <Header />
 
       <main className="flex-1 container py-8 max-w-3xl">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.26 }}
         >
           <div className="mb-8">
             <h1 className="font-display text-3xl font-bold text-foreground">

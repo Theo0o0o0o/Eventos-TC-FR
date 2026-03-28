@@ -77,120 +77,147 @@ const Login = () => {
   };
 
   return (
-    <div className="relative flex min-h-screen overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <img src={escolaBg} alt="" className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-slate-950/55" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,hsl(var(--primary)/0.28),transparent_42%),radial-gradient(circle_at_bottom_right,hsl(var(--secondary)/0.18),transparent_36%)]" />
-      </div>
-
-      <main className="relative z-10 flex flex-1 items-center justify-center px-4 py-12">
+    <div className="relative min-h-screen overflow-hidden">
+      <main className="relative z-10 container flex min-h-screen items-center justify-center py-8 md:py-12">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="w-full max-w-md"
+          transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
+          className="w-full max-w-5xl"
         >
-          <div className="glass-panel rounded-[2rem] p-8 shadow-2xl">
-            <div className="mb-6 flex justify-center">
-              <div className="glass-field rounded-[1.5rem] p-3 shadow-sm">
-                <img src={logo} alt="Eventos TC" className="h-14 w-auto" />
-              </div>
-            </div>
-
-            <div className="mb-8 text-center">
-              <h1 className="mb-2 font-display text-2xl font-bold text-foreground">Entrar</h1>
-              <p className="text-sm text-muted-foreground">Entre na sua conta para continuar</p>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="seu.email@escola.pt"
-                    className="pl-10"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    disabled={submitting}
-                  />
+          <div className="glass-panel rounded-[2.6rem] p-3 md:p-4">
+            <div className="grid gap-4 lg:grid-cols-[0.92fr_1.08fr]">
+              <aside className="relative hidden overflow-hidden rounded-[2.1rem] bg-primary p-8 text-primary-foreground lg:flex lg:flex-col lg:justify-between">
+                <div className="absolute inset-0 poster-grid-bg opacity-[0.18]" />
+                <div className="relative z-10">
+                  <div className="inline-flex items-center gap-3 rounded-full border border-white/14 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/78">
+                    <img src={logo} alt="" aria-hidden="true" className="h-5 w-auto" />
+                    Eventos TC
+                  </div>
+                  <h2 className="editorial-title mt-6 max-w-sm text-[clamp(2.4rem,5vw,4.1rem)] text-white">
+                    Entrar
+                  </h2>
+                  <p className="mt-4 max-w-sm text-sm leading-6 text-white/76">
+                    Entre na sua conta para continuar.
+                  </p>
                 </div>
-              </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="password">Palavra-passe</Label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input
-                    id="password"
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder="••••••••"
-                    className="pl-10 pr-10"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    disabled={submitting}
-                  />
+                <div className="relative z-10 space-y-4">
+                  <div className="paper-frame mx-auto max-w-[25rem] rotate-[-3deg] bg-white">
+                    <img src={escolaBg} alt="Alunos na escola" className="h-64 w-full object-[40%_50%]" />
+                  </div>
+                  <div className="paper-note ml-auto max-w-[14rem] rotate-[3deg] px-4 py-3 text-left text-foreground">
+                    <p className="font-display text-sm font-black uppercase tracking-[-0.03em]">Entrar na sua conta.</p>
+                    <p className="mt-1 text-xs font-medium uppercase tracking-[0.14em] text-foreground/70">Para continuar.</p>
+                  </div>
+                </div>
+              </aside>
+
+              <div className="glass-card rounded-[2.1rem] p-6 md:p-8">
+                <div className="mb-8 flex items-center gap-3">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-[1.2rem] bg-primary p-2.5 shadow-sm">
+                    <img src={logo} alt="Eventos TC" className="h-9 w-auto" />
+                  </div>
+                  <div>
+                    <p className="editorial-subtitle">Acesso</p>
+                    <h1 className="mt-1 font-display text-2xl font-black tracking-[-0.04em] text-foreground">Entrar</h1>
+                  </div>
+                </div>
+
+                <div className="mb-8 max-w-md">
+                  <p className="text-sm leading-6 text-muted-foreground">Entre na sua conta para continuar</p>
+                </div>
+
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="seu.email@escola.pt"
+                        className="pl-11"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        disabled={submitting}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="password">Palavra-passe</Label>
+                    <div className="relative">
+                      <Lock className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                      <Input
+                        id="password"
+                        type={showPassword ? 'text' : 'password'}
+                        placeholder="••••••••"
+                        className="pl-11 pr-11"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        disabled={submitting}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
+                        disabled={submitting}
+                      >
+                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <Button type="submit" className="group w-full" size="lg" disabled={submitting}>
+                    {submitting ? 'A entrar...' : 'Entrar'}
+                    <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1" />
+                  </Button>
+                </form>
+
+                <div className="mt-6 text-center">
+                  <p className="text-sm text-muted-foreground">
+                    Não tem conta?{' '}
+                    <Link to="/registar" className="font-medium text-primary hover:underline">
+                      Criar conta de aluno
+                    </Link>
+                  </p>
+                </div>
+
+                <div className="mt-3 text-center">
                   <button
                     type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
-                    disabled={submitting}
+                    onClick={handleClearSession}
+                    className="text-xs text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
                   >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    Problemas a entrar? Limpar sessão
                   </button>
                 </div>
-              </div>
 
-              <Button type="submit" className="group w-full" size="lg" disabled={submitting}>
-                {submitting ? 'A entrar...' : 'Entrar'}
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </form>
+                <div className="glass-muted mt-6 rounded-[1.5rem] p-4">
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                    Credenciais de demonstração (para avaliação/testes)
+                  </p>
+                  <div className="space-y-1 text-xs text-muted-foreground">
+                    <p>
+                      <strong>Administrador:</strong> admin@eventostc.test · Admin123!
+                    </p>
+                    <p>
+                      <strong>Professor:</strong> professor@eventostc.test · Prof123!
+                    </p>
+                    <p className="opacity-80">
+                      <strong>Aluno:</strong> pode criar uma conta em “Criar conta de aluno”
+                    </p>
+                  </div>
+                </div>
 
-            <div className="mt-6 text-center">
-              <p className="text-sm text-muted-foreground">
-                Não tem conta?{' '}
-                <Link to="/registar" className="font-medium text-primary hover:underline">
-                  Criar conta de aluno
-                </Link>
-              </p>
-            </div>
-
-            <div className="mt-3 text-center">
-              <button
-                type="button"
-                onClick={handleClearSession}
-                className="text-xs text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
-              >
-                Problemas a entrar? Limpar sessão
-              </button>
-            </div>
-
-            <div className="glass-muted mt-5 rounded-[1.25rem] p-4">
-              <p className="mb-2 text-xs font-semibold text-muted-foreground">
-                Credenciais de demonstração (para avaliação/testes)
-              </p>
-              <div className="space-y-1 text-xs text-muted-foreground">
-                <p>
-                  <strong>Administrador:</strong> admin@eventostc.test · Admin123!
-                </p>
-                <p>
-                  <strong>Professor:</strong> professor@eventostc.test · Prof123!
-                </p>
-                <p className="opacity-80">
-                  <strong>Aluno:</strong> pode criar uma conta em “Criar conta de aluno”
-                </p>
+                <div className="mt-6 text-center">
+                  <Link to="/" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                    ← Voltar à página inicial
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="mt-6 text-center">
-            <Link to="/" className="text-sm text-white/80 transition-colors hover:text-white">
-              ← Voltar à página inicial
-            </Link>
           </div>
         </motion.div>
       </main>

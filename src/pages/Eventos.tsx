@@ -16,6 +16,8 @@ import { useEvents } from '@/contexts/EventContext';
 import { eventTypeLabels, eventTypeColors, type Event } from '@/data/mockData';
 import { cn } from '@/lib/utils';
 
+const pageTransition = { duration: 0.26, ease: [0.22, 1, 0.36, 1] as const };
+
 const Eventos = () => {
   const { user, canManageEvents, isAdmin } = useAuth();
   const { events } = useEvents();
@@ -48,34 +50,58 @@ const Eventos = () => {
   }, [events, selectedTypes, selectedDate, search, showOpen]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-muted/30">
+    <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-1 container py-8">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-          className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-          <div>
-            <h1 className="font-display text-3xl font-bold text-foreground">Eventos</h1>
-            <p className="text-muted-foreground mt-1">Descubra e inscreva-se nos eventos da escola</p>
-          </div>
-          {canManageEvents && (
-            <Button size="lg" className="gap-2" onClick={() => navigate('/eventos/novo')}>
-              <Plus className="h-5 w-5" /> Criar Evento
-            </Button>
-          )}
-        </motion.div>
+      <main className="flex-1 container py-8 md:py-10">
+        <motion.section
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={pageTransition}
+          className="glass-panel rounded-[2.2rem] px-6 py-6 md:px-8 md:py-8"
+        >
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <p className="editorial-subtitle">Eventos</p>
+              <h1 className="editorial-title mt-3 text-[clamp(2.9rem,7vw,4.8rem)] text-foreground">Eventos</h1>
+              <p className="mt-4 max-w-xl text-base leading-7 text-muted-foreground md:text-lg">
+                Descubra e inscreva-se nos eventos da escola.
+              </p>
+            </div>
 
-        <div className="flex flex-col md:flex-row gap-3 mb-6">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="Pesquisar eventos..." className="pl-10" value={search} onChange={(e) => setSearch(e.target.value)} />
+            {canManageEvents && (
+              <Button size="lg" className="gap-2 self-start lg:self-auto" onClick={() => navigate('/eventos/novo')}>
+                <Plus className="h-5 w-5" />
+                Criar Evento
+              </Button>
+            )}
           </div>
-          <Button variant={showOpen ? 'default' : 'outline'} onClick={() => setShowOpen(!showOpen)}>Apenas abertos</Button>
+
+          <div className="mt-6 flex flex-col gap-3 md:flex-row">
+            <div className="relative flex-1">
+              <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Pesquisar eventos..."
+                className="pl-11"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+            <Button variant={showOpen ? 'default' : 'outline'} onClick={() => setShowOpen(!showOpen)}>
+              Apenas abertos
+            </Button>
+          </div>
+        </motion.section>
+
+        <div className="mt-6">
+          <EventFilters
+            selectedTypes={selectedTypes}
+            onTypeChange={setSelectedTypes}
+            selectedDate={selectedDate}
+            onDateChange={setSelectedDate}
+          />
         </div>
 
-        <EventFilters selectedTypes={selectedTypes} onTypeChange={setSelectedTypes}
-          selectedDate={selectedDate} onDateChange={setSelectedDate} />
-
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {filteredEvents.map((event, index) => {
             const isOpen = event.registrationType === 'open';
             const spotsLeft = isOpen ? Infinity : event.maxParticipants - event.currentParticipants;
@@ -85,63 +111,95 @@ const Eventos = () => {
             const isCompleted = event.status === 'completed';
 
             return (
-              <motion.article key={event.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-                className={cn("group glass-card rounded-2xl overflow-hidden card-hover flex flex-col", (isCancelled || isCompleted) && "opacity-60")}>
-                <div className="relative flex h-36 items-center justify-center overflow-hidden bg-[linear-gradient(135deg,hsl(var(--primary)/0.18),hsl(var(--secondary)/0.08))]">
-                  {event.coverImage && (
-                    <img src={event.coverImage} alt="" className="absolute inset-0 w-full h-full object-cover" />
-                  )}
-                  <div className={cn("absolute inset-0", event.coverImage && "bg-foreground/40")} />
-                  <div className="relative z-10 text-center px-6">
-                    <Badge variant={eventTypeColors[event.type] as any} className="mb-2">{event.type === 'other' && event.customType ? event.customType : eventTypeLabels[event.type]}</Badge>
-                    <h3 className={cn("font-display text-lg font-bold line-clamp-2 text-safe",
-                      event.coverImage ? "text-white" : "text-foreground")}>{event.title}</h3>
+              <motion.article
+                key={event.id}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.24, delay: index * 0.03 }}
+                className={cn('group glass-card rounded-[1.9rem] p-4 card-hover', (isCancelled || isCompleted) && 'opacity-70')}
+              >
+                <div className="mb-4 rounded-[1.5rem] border border-foreground/10 bg-[hsl(var(--paper-strong)/0.55)] p-4 poster-grid-bg">
+                  <div className="mb-4 flex flex-wrap gap-2">
+                    <Badge variant={eventTypeColors[event.type] as any}>
+                      {event.type === 'other' && event.customType ? event.customType : eventTypeLabels[event.type]}
+                    </Badge>
+                    {isCompleted && <Badge variant="secondary">Concluído</Badge>}
+                    {isCancelled && <Badge variant="destructive">Encerrado</Badge>}
+                    {isFull && !isCancelled && !isCompleted && <Badge variant="destructive">Esgotado</Badge>}
+                    {isAlmostFull && !isCancelled && !isCompleted && <Badge variant="secondary">Últimas vagas</Badge>}
+                    {isOpen && !isCancelled && !isCompleted && <Badge variant="success">Aberto</Badge>}
                   </div>
-                  {isCompleted && <div className="absolute top-3 right-3"><Badge variant="secondary">Concluído</Badge></div>}
-                  {isCancelled && <div className="absolute top-3 right-3"><Badge variant="destructive">Encerrado</Badge></div>}
-                  {isFull && !isCancelled && !isCompleted && <div className="absolute top-3 right-3"><Badge variant="destructive">Esgotado</Badge></div>}
-                  {isAlmostFull && !isCancelled && !isCompleted && (
-                    <div className="absolute top-3 right-3">
-                      <Badge variant="secondary">Últimas vagas</Badge>
+
+                  {event.coverImage ? (
+                    <div className="paper-frame mx-auto w-[92%] rotate-[-2.5deg]">
+                      <img src={event.coverImage} alt="" className="h-40 w-full" />
                     </div>
-                  )}
-                  {isOpen && !isCancelled && !isCompleted && (
-                    <div className="absolute top-3 right-3">
-                      <Badge variant="success">Aberto</Badge>
+                  ) : (
+                    <div className="flex min-h-[10.5rem] items-center justify-center rounded-[1.3rem] border border-foreground/10 bg-white/72 p-5 text-center">
+                      <h3 className="editorial-title text-3xl text-foreground">{event.title}</h3>
                     </div>
                   )}
                 </div>
 
-                <div className="p-5 flex flex-1 flex-col gap-3">
-                  <div className="space-y-1.5 text-sm">
-                    <div className="flex items-center gap-2 text-foreground"><Calendar className="h-4 w-4" />
-                      <span className="capitalize">
+                <div className="flex h-full flex-col gap-3 px-1 pb-1">
+                  <h3 className="font-display text-2xl font-black tracking-[-0.04em] text-foreground line-clamp-2 text-safe">
+                    {event.title}
+                  </h3>
+                  <p className="line-clamp-2 text-sm leading-6 text-muted-foreground">{event.description}</p>
+
+                  <div className="space-y-2.5 rounded-[1.35rem] border border-foreground/10 bg-white/55 p-4 text-sm shadow-sm">
+                    <div className="flex items-center gap-2 text-foreground">
+                      <Calendar className="h-4 w-4 text-primary" />
+                      <span className="capitalize text-safe">
                         {event.dates && event.dates.length > 1
-                          ? `${format(event.dates[0], "d MMM", { locale: pt })} - ${format(event.dates[event.dates.length - 1], "d MMM yyyy", { locale: pt })} (${event.dates.length} datas)`
-                          : format(event.date, "d MMM yyyy", { locale: pt })}
-                      </span></div>
-                    <div className="flex items-center gap-2 text-foreground"><Clock className="h-4 w-4" />
-                      <span>{event.time} · {event.duration} min</span></div>
-                    <div className="flex items-center gap-2 text-foreground"><MapPin className="h-4 w-4" />
-                      <span>{event.location}</span></div>
+                          ? `${format(event.dates[0], 'd MMM', { locale: pt })} - ${format(event.dates[event.dates.length - 1], 'd MMM yyyy', { locale: pt })} (${event.dates.length} datas)`
+                          : format(event.date, 'd MMM yyyy', { locale: pt })}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-foreground">
+                      <Clock className="h-4 w-4 text-primary" />
+                      <span>{event.time} · {event.duration} min</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-foreground">
+                      <MapPin className="h-4 w-4 text-primary" />
+                      <span className="text-safe">{event.location}</span>
+                    </div>
                     {!isOpen && (
-                      <div className="flex items-center gap-2"><Users className="h-4 w-4 text-muted-foreground" />
-                        <span className="text-muted-foreground">{event.currentParticipants}/{event.maxParticipants} inscritos</span></div>
+                      <div className="flex items-center gap-2 text-muted-foreground">
+                        <Users className="h-4 w-4" />
+                        <span>{event.currentParticipants}/{event.maxParticipants} inscritos</span>
+                      </div>
                     )}
                   </div>
+
                   {!isOpen && (
-                    <div className="h-2 overflow-hidden rounded-full bg-white/40 dark:bg-white/10">
-                      <div className={cn("h-full rounded-full", isFull ? "bg-destructive" : isAlmostFull ? "bg-secondary" : "bg-success")}
-                        style={{ width: `${Math.min(100, (event.currentParticipants / event.maxParticipants) * 100)}%` }} />
+                    <div className="mt-1">
+                      <div className="mb-2 flex items-center justify-between text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                        <span>Ocupação</span>
+                        <span>{Math.min(100, Math.round((event.currentParticipants / event.maxParticipants) * 100))}%</span>
+                      </div>
+                      <div className="h-2.5 overflow-hidden rounded-full bg-foreground/10">
+                        <div
+                          className={cn('h-full rounded-full transition-all duration-200', isFull ? 'bg-destructive' : isAlmostFull ? 'bg-secondary' : 'bg-primary')}
+                          style={{ width: `${Math.min(100, (event.currentParticipants / event.maxParticipants) * 100)}%` }}
+                        />
+                      </div>
                     </div>
                   )}
-                  <div className="flex gap-2 pt-1 mt-auto">
-                    <Button className="flex-1 group/btn" variant="default" size="sm" onClick={() => navigate(`/eventos/${event.id}`)}>
-                      Ver detalhes <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+
+                  <div className="mt-auto flex gap-2 pt-2">
+                    <Button className="flex-1 group/btn" size="sm" onClick={() => navigate(`/eventos/${event.id}`)}>
+                      Ver detalhes
+                      <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover/btn:translate-x-1" />
                     </Button>
                     {(isAdmin || (canManageEvents && event.organizerId === user?.id)) && (
-                      <Button variant="outline" size="sm" onClick={() => navigate(`/eventos/${event.id}/editar`, { state: { from: '/eventos' } })}>Editar</Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => navigate(`/eventos/${event.id}/editar`, { state: { from: '/eventos' } })}
+                      >
+                        Editar
+                      </Button>
                     )}
                   </div>
                 </div>
@@ -151,8 +209,10 @@ const Eventos = () => {
         </div>
 
         {filteredEvents.length === 0 && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-16">
-            <p className="text-lg text-muted-foreground">Nenhum evento encontrado com os filtros selecionados.</p>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }} className="py-16 text-center">
+            <div className="glass-card mx-auto max-w-xl rounded-[1.8rem] p-8">
+              <p className="text-lg text-muted-foreground">Nenhum evento encontrado com os filtros selecionados.</p>
+            </div>
           </motion.div>
         )}
       </main>

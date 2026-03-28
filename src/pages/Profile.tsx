@@ -37,7 +37,7 @@ const Profile = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen flex flex-col bg-muted/30">
+      <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-1 container py-16 text-center">
           <h1 className="font-display text-2xl font-bold text-foreground mb-4">Faça login</h1>
@@ -87,10 +87,10 @@ const Profile = () => {
     .toUpperCase();
 
   return (
-    <div className="min-h-screen flex flex-col bg-muted/30">
+    <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1 container py-8 max-w-4xl">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+        <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.26 }}>
           {/* Profile card */}
           <div className="glass-card rounded-xl p-6 md:p-8 mb-8">
             <div className="flex flex-col md:flex-row items-center gap-6">
