@@ -61,11 +61,7 @@ const Eventos = () => {
         >
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
-              <p className="editorial-subtitle">Eventos</p>
-              <h1 className="editorial-title mt-3 text-[clamp(2.9rem,7vw,4.8rem)] text-foreground">Eventos</h1>
-              <p className="mt-4 max-w-xl text-base leading-7 text-muted-foreground md:text-lg">
-                Descubra e inscreva-se nos eventos da escola.
-              </p>
+              <h1 className="editorial-title text-[clamp(2.9rem,7vw,4.8rem)] text-foreground">Eventos</h1>
             </div>
 
             {canManageEvents && (
@@ -116,7 +112,7 @@ const Eventos = () => {
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.24, delay: index * 0.03 }}
-                className={cn('group glass-card rounded-[1.9rem] p-4 card-hover', (isCancelled || isCompleted) && 'opacity-70')}
+                className={cn('group glass-card flex flex-col rounded-[1.9rem] p-4 card-hover', (isCancelled || isCompleted) && 'opacity-70')}
               >
                 <div className="mb-4 rounded-[1.5rem] border border-foreground/10 bg-[hsl(var(--paper-strong)/0.55)] p-4 poster-grid-bg">
                   <div className="mb-4 flex flex-wrap gap-2">
@@ -141,7 +137,7 @@ const Eventos = () => {
                   )}
                 </div>
 
-                <div className="flex h-full flex-col gap-3 px-1 pb-1">
+                <div className="flex flex-1 flex-col gap-3 px-1 pb-1">
                   <h3 className="font-display text-2xl font-black tracking-[-0.04em] text-foreground line-clamp-2 text-safe">
                     {event.title}
                   </h3>
@@ -187,20 +183,27 @@ const Eventos = () => {
                     </div>
                   )}
 
-                  <div className="mt-auto flex gap-2 pt-2">
-                    <Button className="flex-1 group/btn" size="sm" onClick={() => navigate(`/eventos/${event.id}`)}>
-                      Ver detalhes
-                      <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover/btn:translate-x-1" />
-                    </Button>
-                    {(isAdmin || (canManageEvents && event.organizerId === user?.id)) && (
+                  <div className="mt-auto pt-3">
+                    <div className="flex flex-col gap-2 border-t border-foreground/10 pt-3 sm:flex-row">
                       <Button
-                        variant="outline"
+                        className="w-full flex-1 group/btn"
                         size="sm"
-                        onClick={() => navigate(`/eventos/${event.id}/editar`, { state: { from: '/eventos' } })}
+                        onClick={() => navigate(`/eventos/${event.id}`)}
                       >
-                        Editar
+                        Ver detalhes do evento
+                        <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover/btn:translate-x-1" />
                       </Button>
-                    )}
+                      {(isAdmin || (canManageEvents && event.organizerId === user?.id)) && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full sm:w-auto"
+                          onClick={() => navigate(`/eventos/${event.id}/editar`, { state: { from: '/eventos' } })}
+                        >
+                          Editar
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 </div>
               </motion.article>

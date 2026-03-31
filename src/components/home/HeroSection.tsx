@@ -51,10 +51,10 @@ export function HeroSection() {
                 </Link>
                 <div className="paper-note max-w-[14rem] rotate-[-2deg] px-4 py-3 text-left shadow-sm">
                   <p className="font-display text-sm font-black uppercase tracking-[-0.03em] text-foreground">
-                    Inscreva-se facilmente.
+                    Garante o teu lugar.
                   </p>
-                  <p className="mt-1 text-xs font-medium uppercase tracking-[0.14em] text-foreground/70">
-                    Tudo num só lugar.
+                  <p className="mt-1 text-xs font-medium text-foreground/70">
+                    Participa sem complicações.
                   </p>
                 </div>
               </motion.div>

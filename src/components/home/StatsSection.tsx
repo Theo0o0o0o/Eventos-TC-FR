@@ -49,19 +49,19 @@ export function StatsSection() {
                 <p
                   className={cn(
                     'text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground',
-                    stat.featured && 'text-white/70',
+                    stat.featured && 'text-black/70',
                   )}
                 >
                   {stat.label}
                 </p>
-                <p className={cn('mt-4 font-display text-4xl font-black tracking-[-0.05em] text-foreground', stat.featured && 'text-white')}>
+                <p className={cn('mt-4 font-display text-4xl font-black tracking-[-0.05em] text-foreground', stat.featured && 'text-[rgb(29,33,42)]')}>
                   {stat.value}
                 </p>
               </div>
               <div
                 className={cn(
                   'flex h-14 w-14 items-center justify-center rounded-[1.3rem] border border-foreground/10 bg-white/80 shadow-sm',
-                  stat.featured && 'border-white/16 bg-white/12 text-white',
+                  stat.featured && 'border-black/10 bg-white/55 text-black',
                 )}
               >
                 <stat.icon className="h-6 w-6" />

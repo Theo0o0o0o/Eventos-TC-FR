@@ -9,6 +9,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import logo from '@/assets/logo.png';
 import escolaBg from '@/assets/escola-bg.jpg';
+import loginLogoDark from '@/assets/login-logo-dark.png';
 
 const Registar = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -79,35 +80,22 @@ const Registar = () => {
                   <h2 className="editorial-title mt-6 max-w-sm text-[clamp(2.4rem,5vw,4.1rem)] text-white">
                     Criar Conta
                   </h2>
-                  <p className="mt-4 max-w-sm text-sm leading-6 text-white/76">
-                    Registe-se como aluno para se inscrever nos eventos.
-                  </p>
                 </div>
 
-                <div className="relative z-10 space-y-4">
+                <div className="relative z-10 mt-8 space-y-4 lg:mt-10">
                   <div className="paper-frame mx-auto max-w-[25rem] rotate-[3deg] bg-white">
                     <img src={escolaBg} alt="Escola" className="h-64 w-full object-[58%_50%]" />
                   </div>
                   <div className="paper-note max-w-[15rem] rotate-[-3deg] px-4 py-3 text-left text-foreground">
-                    <p className="font-display text-sm font-black uppercase tracking-[-0.03em]">Registe-se como aluno.</p>
+                    <p className="font-display text-sm font-black uppercase tracking-[-0.03em]">Registe-se como aluno</p>
                     <p className="mt-1 text-xs font-medium uppercase tracking-[0.14em] text-foreground/70">Para se inscrever.</p>
                   </div>
                 </div>
               </aside>
 
               <div className="glass-card rounded-[2.1rem] p-6 md:p-8">
-                <div className="mb-8 flex items-center gap-3">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-[1.2rem] bg-primary p-2.5 shadow-sm">
-                    <img src={logo} alt="Eventos TC" className="h-9 w-auto" />
-                  </div>
-                  <div>
-                    <p className="editorial-subtitle">Registo</p>
-                    <h1 className="mt-1 font-display text-2xl font-black tracking-[-0.04em] text-foreground">Criar Conta</h1>
-                  </div>
-                </div>
-
-                <div className="mb-8 max-w-md">
-                  <p className="text-sm leading-6 text-muted-foreground">Registe-se como aluno para se inscrever nos eventos</p>
+                <div className="mb-8 flex items-center">
+                  <img src={loginLogoDark} alt="Eventos TC" className="h-16 w-auto shrink-0 object-contain" />
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4">

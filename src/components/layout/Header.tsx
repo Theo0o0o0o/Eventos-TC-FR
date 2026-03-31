@@ -48,12 +48,10 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full pt-3 md:pt-4">
       <div className="container">
         <div className="glass-nav rounded-[1.9rem] p-3 md:p-3.5">
-          <div className="flex items-center gap-3">
+          <div className="relative flex items-center gap-3">
             <Link to="/" className="shrink-0 rounded-[1.45rem] bg-primary p-2.5 text-primary-foreground shadow-[0_22px_36px_-24px_hsl(var(--paper-shadow)/0.95)] transition-transform duration-150 hover:-translate-y-0.5">
-              <div className="flex items-center gap-3 rounded-[1.15rem] border border-white/14 bg-white/10 px-3 py-2">
-                <div className="flex h-11 w-11 items-center justify-center rounded-[1rem] bg-white/14 p-2 shadow-sm">
-                  <img src={logo} alt="Eventos TC" className="h-8 w-auto" />
-                </div>
+              <div className="flex items-center gap-3 rounded-[1.15rem] border border-white/14 bg-white/10 px-3 py-2.5">
+                <img src={logo} alt="Eventos TC" className="h-11 w-11 shrink-0 object-contain" />
                 <div className="hidden sm:block leading-none text-left">
                   <span className="block font-display text-lg font-black uppercase tracking-[-0.04em] text-white">
                     Eventos TC
@@ -62,7 +60,7 @@ export function Header() {
               </div>
             </Link>
 
-            <nav className="hidden md:flex md:flex-1 md:flex-wrap md:items-center md:gap-2">
+            <nav className="hidden md:absolute md:left-1/2 md:flex md:-translate-x-1/2 md:flex-wrap md:items-center md:justify-center md:gap-2">
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.href || location.pathname.startsWith(link.href + '/');
                 return (
