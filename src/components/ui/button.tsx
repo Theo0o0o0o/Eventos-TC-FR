@@ -10,22 +10,22 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "border-primary/80 bg-primary text-primary-foreground shadow-[0_18px_30px_-20px_hsl(var(--paper-shadow)/0.9)] hover:-translate-y-0.5 hover:shadow-[0_22px_36px_-22px_hsl(var(--paper-shadow)/0.95)]",
+          "border-primary/70 bg-primary text-primary-foreground shadow-[0_16px_28px_-22px_hsl(var(--paper-shadow)/0.82)] hover:-translate-y-0.5 hover:bg-primary/95 hover:shadow-[0_20px_34px_-24px_hsl(var(--paper-shadow)/0.88)]",
         destructive:
-          "border-destructive/80 bg-destructive text-destructive-foreground shadow-[0_18px_30px_-20px_hsl(var(--paper-shadow)/0.8)] hover:-translate-y-0.5 hover:brightness-[1.02]",
+          "border-destructive/70 bg-destructive text-destructive-foreground shadow-[0_16px_28px_-22px_hsl(var(--paper-shadow)/0.76)] hover:-translate-y-0.5 hover:brightness-[1.02]",
         outline:
-          "border-foreground/15 bg-[hsl(var(--paper-strong)/0.96)] text-foreground shadow-[0_14px_24px_-20px_hsl(var(--paper-shadow)/0.72)] hover:-translate-y-0.5 hover:border-foreground/24 hover:bg-white dark:bg-[hsl(var(--paper-strong)/0.96)]",
+          "border-foreground/12 bg-[hsl(var(--paper-strong))] text-foreground shadow-[0_12px_22px_-20px_hsl(var(--paper-shadow)/0.62)] hover:-translate-y-0.5 hover:border-foreground/22 hover:bg-foreground/[0.035] dark:hover:bg-white/[0.04]",
         secondary:
-          "border-secondary/35 bg-secondary text-secondary-foreground shadow-[0_18px_30px_-20px_hsl(var(--paper-shadow)/0.8)] hover:-translate-y-0.5 hover:brightness-[1.02]",
+          "border-secondary/35 bg-secondary text-secondary-foreground shadow-[0_16px_28px_-22px_hsl(var(--paper-shadow)/0.78)] hover:-translate-y-0.5 hover:brightness-[1.01]",
         ghost:
-          "border-transparent bg-transparent text-foreground/82 hover:bg-foreground/[0.06] hover:text-foreground",
+          "border-transparent bg-transparent text-foreground/82 hover:bg-foreground/[0.05] hover:text-foreground",
         link: "border-transparent p-0 text-primary underline-offset-4 hover:underline",
         hero:
-          "border-foreground/8 bg-foreground text-white shadow-[0_20px_34px_-22px_hsl(var(--paper-shadow)/0.98)] hover:-translate-y-0.5 hover:bg-foreground/95",
+          "border-foreground/10 bg-foreground text-white shadow-[0_18px_32px_-22px_hsl(var(--paper-shadow)/0.9)] hover:-translate-y-0.5 hover:bg-foreground/96",
         accent:
-          "border-secondary/35 bg-secondary text-secondary-foreground shadow-[0_18px_30px_-20px_hsl(var(--paper-shadow)/0.86)] hover:-translate-y-0.5 hover:brightness-[1.02]",
+          "border-secondary/35 bg-secondary text-secondary-foreground shadow-[0_16px_28px_-22px_hsl(var(--paper-shadow)/0.8)] hover:-translate-y-0.5 hover:brightness-[1.01]",
         success:
-          "border-success/80 bg-success text-success-foreground shadow-[0_18px_30px_-20px_hsl(var(--paper-shadow)/0.82)] hover:-translate-y-0.5 hover:brightness-[1.02]",
+          "border-success/70 bg-success text-success-foreground shadow-[0_16px_28px_-22px_hsl(var(--paper-shadow)/0.76)] hover:-translate-y-0.5 hover:brightness-[1.02]",
       },
       size: {
         default: "h-11 px-5 py-2",

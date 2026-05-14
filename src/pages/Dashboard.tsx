@@ -38,10 +38,10 @@ const Dashboard = () => {
   const totalParticipants = approvedEvents.reduce((sum, e) => sum + e.currentParticipants, 0);
 
   const stats = [
-    { label: 'Total Eventos', value: String(allEvents.length), icon: Calendar, color: 'bg-primary/10 text-primary dark:text-white' },
+    { label: 'Total Eventos', value: String(allEvents.length), icon: Calendar, color: 'bg-primary/10 text-primary dark:bg-primary/16 dark:text-primary' },
     { label: 'Aprovados', value: String(approvedEvents.length), icon: CheckCircle2, color: 'bg-success/10 text-success' },
-    { label: 'Pendentes', value: String(pendingEvents.length), icon: ShieldCheck, color: 'bg-secondary/10 text-secondary-foreground dark:text-amber-400' },
-    { label: 'Inscritos', value: String(totalParticipants), icon: Users, color: 'bg-primary/10 text-primary dark:text-white' },
+    { label: 'Pendentes', value: String(pendingEvents.length), icon: ShieldCheck, color: 'bg-secondary/12 text-secondary-foreground dark:bg-secondary/16 dark:text-secondary' },
+    { label: 'Inscritos', value: String(totalParticipants), icon: Users, color: 'bg-primary/10 text-primary dark:bg-primary/16 dark:text-primary' },
     { label: 'Visualizações', value: String(totalViews), icon: EyeIcon, color: 'bg-muted text-muted-foreground' },
     { label: 'Concluídos', value: String(completedCount), icon: Award, color: 'bg-success/10 text-success' },
   ];

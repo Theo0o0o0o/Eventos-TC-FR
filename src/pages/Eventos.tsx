@@ -112,9 +112,9 @@ const Eventos = () => {
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.24, delay: index * 0.03 }}
-                className={cn('group glass-card flex flex-col rounded-[1.9rem] p-4 card-hover', (isCancelled || isCompleted) && 'opacity-70')}
+                className={cn('group glass-card flex h-full flex-col rounded-[1.9rem] p-4 card-hover', (isCancelled || isCompleted) && 'opacity-70')}
               >
-                <div className="mb-4 rounded-[1.5rem] border border-foreground/10 bg-[hsl(var(--paper-strong)/0.55)] p-4 poster-grid-bg">
+                <div className="mb-4 rounded-[1.5rem] border border-foreground/10 bg-[hsl(var(--paper-strong))] p-4 poster-grid-bg">
                   <div className="mb-4 flex flex-wrap gap-2">
                     <Badge variant={eventTypeColors[event.type] as any}>
                       {event.type === 'other' && event.customType ? event.customType : eventTypeLabels[event.type]}
@@ -131,7 +131,7 @@ const Eventos = () => {
                       <img src={event.coverImage} alt="" className="h-40 w-full" />
                     </div>
                   ) : (
-                    <div className="flex min-h-[10.5rem] items-center justify-center rounded-[1.3rem] border border-foreground/10 bg-white/72 p-5 text-center">
+                    <div className="flex min-h-[10.5rem] items-center justify-center rounded-[1.3rem] border border-foreground/10 bg-[hsl(var(--paper-strong))] p-5 text-center">
                       <h3 className="editorial-title text-3xl text-foreground">{event.title}</h3>
                     </div>
                   )}
@@ -143,7 +143,7 @@ const Eventos = () => {
                   </h3>
                   <p className="line-clamp-2 text-sm leading-6 text-muted-foreground">{event.description}</p>
 
-                  <div className="space-y-2.5 rounded-[1.35rem] border border-foreground/10 bg-white/55 p-4 text-sm shadow-sm">
+                  <div className="space-y-2.5 rounded-[1.35rem] border border-foreground/10 bg-[hsl(var(--paper-strong))] p-4 text-sm shadow-sm">
                     <div className="flex items-center gap-2 text-foreground">
                       <Calendar className="h-4 w-4 text-primary" />
                       <span className="capitalize text-safe">
@@ -168,22 +168,24 @@ const Eventos = () => {
                     )}
                   </div>
 
-                  {!isOpen && (
-                    <div className="mt-1">
-                      <div className="mb-2 flex items-center justify-between text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-                        <span>Ocupação</span>
-                        <span>{Math.min(100, Math.round((event.currentParticipants / event.maxParticipants) * 100))}%</span>
+                  <div className="flex flex-1 flex-col justify-center">
+                    {!isOpen && (
+                      <div className="mt-1">
+                        <div className="mb-2 flex items-center justify-between text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                          <span>Ocupação</span>
+                          <span>{Math.min(100, Math.round((event.currentParticipants / event.maxParticipants) * 100))}%</span>
+                        </div>
+                        <div className="h-2.5 overflow-hidden rounded-full bg-foreground/10">
+                          <div
+                            className={cn('h-full rounded-full transition-all duration-200', isFull ? 'bg-destructive' : isAlmostFull ? 'bg-secondary' : 'bg-primary')}
+                            style={{ width: `${Math.min(100, (event.currentParticipants / event.maxParticipants) * 100)}%` }}
+                          />
+                        </div>
                       </div>
-                      <div className="h-2.5 overflow-hidden rounded-full bg-foreground/10">
-                        <div
-                          className={cn('h-full rounded-full transition-all duration-200', isFull ? 'bg-destructive' : isAlmostFull ? 'bg-secondary' : 'bg-primary')}
-                          style={{ width: `${Math.min(100, (event.currentParticipants / event.maxParticipants) * 100)}%` }}
-                        />
-                      </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
 
-                  <div className="mt-auto pt-3">
+                  <div className="pt-3">
                     <div className="flex flex-col gap-2 border-t border-foreground/10 pt-3 sm:flex-row">
                       <Button
                         className="w-full flex-1 group/btn"
